@@ -13,16 +13,16 @@ use Psr\Log\NullLogger;
 
 class ImmortalEntityManager implements EntityManagerInterface
 {
-    private EntityManager $entityManager;
-    private LoggerInterface $logger;
+    protected EntityManagerInterface $entityManager;
+    protected LoggerInterface $logger;
 
-    public function __construct(EntityManager $entityManager, ?LoggerInterface $logger = null)
+    public function __construct(EntityManagerInterface $entityManager, ?LoggerInterface $logger = null)
     {
         $this->logger = $logger ?? new NullLogger();
         $this->entityManager = $entityManager;
     }
 
-    private function assertEmIsOpen(): void
+    protected function assertEmIsOpen(): void
     {
         if (!$this->entityManager->isOpen()) {
             try {
